@@ -41,7 +41,6 @@ New Database State:
     json.dump(db, open('db.json', 'w'))
     return "done"
 
-@stub.local_entrypoint
-def main():
-    # Call the function directly.
-    print(api.call("todo_list", "add_task('buy milk"))
+if __name__ == "__main__":
+    with stub.run():
+        api.call("todo_list", "add_task('buy milk")
