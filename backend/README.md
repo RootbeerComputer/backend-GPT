@@ -11,4 +11,5 @@ modal run server.py --app-name "todo_list" --api-call "complete_task(1)"
 
 You can run locally with
 ```
+python3 server.py
 ```
