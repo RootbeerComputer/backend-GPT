@@ -41,6 +41,7 @@ New Database State:
     json.dump(db, open('db.json', 'w'))
     return "done"
 
-if __name__ == "__main__":
-    with stub.run():
-        Model().predict("todo_list", "add_task('buy milk")
+@stub.local_entrypoint
+def main():
+    # Call the function directly.
+    print(api.call("todo_list", "add_task('buy milk"))
