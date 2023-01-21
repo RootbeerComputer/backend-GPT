@@ -4,7 +4,7 @@ from flask import Flask
 
 import modal
 
-openai.api_key = "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"
+openai.api_key = "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" # "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"
 
 stub = modal.Stub("not-an-api")
 volume = modal.SharedVolume().persist("storage")
@@ -18,7 +18,7 @@ app = Flask(__name__)
 #     shared_volumes={'/Users/evan/rizz-ur-api/backend': volume},
 #     mounts=[modal.Mount(local_dir="/Users/evan/rizz-ur-api/backend/starting_data", remote_dir="/root")]
 # )
-@app.route('/')
+@app.route('/<app_name>/<api_call>')
 def api(app_name, api_call):
     db = json.load(open('db.json','r'))
     gpt3_input = f"""{db[app_name]["prompt"]}

@@ -1,0 +1,1 @@
+{"todo_list": {"prompt": "This is a todo list app.", "state": "{'todos': [{'title': 'Learn React', 'completed': True}, {'title': 'Learn Redux', 'completed': True}, {'title': 'Buy Milk', 'completed': False}, {'title': 'Do Laundry', 'completed': False}]}"}}
