@@ -29,8 +29,14 @@ export function getItemById(itemId) {
 }
 
 export function updateStatus(items, itemId, completed) {
+    let index = items.findIndex(item => item.id === itemId);
+
     // Returns a new list of data with updated item.
-    return items.filter(item => item.id !== itemId);
+    return update(items, {
+        [index]: {
+            completed: { $set: completed }
+        }
+    });
 }
 
 /**
