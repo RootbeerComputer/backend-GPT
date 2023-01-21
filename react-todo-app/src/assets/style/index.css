@@ -1,0 +1,126 @@
+body {
+    background-color: #eee;
+    color: #555;
+}
+
+.todolist {
+    background-color: #FFF;
+    padding: 20px 20px 10px 20px;
+    width: 600px;
+    margin: 30px auto;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    position: relative;
+}
+
+.todolist h1 {
+    margin: 0;
+    padding-bottom: 20px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.todolist .info {
+    position: absolute;
+    margin-top: 20px;
+    left: 0;
+    right: 0;
+    color: #999;
+    text-align: center;
+}
+
+.form-control {
+    border-radius: 0;
+}
+
+li.ui-state-default {
+    background: #fff;
+    border: none;
+    border-bottom: 1px solid #ddd;
+}
+
+li.ui-state-default:last-child {
+    border-bottom: none;
+}
+
+li.completed label {
+    text-decoration: line-through;
+    color: #aaa;
+}
+
+footer {
+    border-top: 1px solid #ddd;
+    background-color: #F4FCE8;
+    margin: 0 -20px -10px -20px;
+    padding: 12px 20px;
+    position: relative;
+    color: #777;
+}
+
+.filters {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.filters li {
+    display: inline-block;
+}
+
+.filters li a {
+    cursor: pointer;
+    color: inherit;
+    margin: 3px;
+    padding: 4px 8px;
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-radius: 3px;
+}
+
+.filters li a.selected, .filters li a:hover {
+    border-color: rgba(175, 47, 47, 0.1);
+}
+
+.filters li a.selected {
+    border-color: rgba(175, 47, 47, 0.2);
+    color: #555;
+}
+
+footer .buttons {
+    border-right: 1px solid #ccc;
+    margin-right: 15px;
+    padding-right: 10px;
+    height: 20px;
+}
+
+.buttons .button {
+    display: inline-block;
+    margin: 0 5px;
+    height: 18px;
+    width: 18px;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: 0.3s all;
+}
+
+.buttons .button:hover, .buttons .button.selected {
+    opacity: 1;
+    border-color: #ddd;
+}
+
+.buttons .add {
+    background: url(../images/add.svg) no-repeat center;
+}
+
+.buttons .search {
+    background: url(../images/search.svg) no-repeat center;
+}
+
+.alert.alert-info {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 0;
+    background: #f2f2f2;
+    border: 1px solid rgba(229, 229, 229, 0.5);
+    color: #888;
+}
