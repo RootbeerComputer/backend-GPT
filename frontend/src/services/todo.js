@@ -29,7 +29,6 @@ export function getItemById(itemId) {
 }
 
 export function updateStatus(items, itemId, completed) {
-
     // Returns a new list of data with updated item.
     return items.filter(item => item.id !== itemId);
 }
