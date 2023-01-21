@@ -1,5 +1,6 @@
 import json
 import openai
+from flask import Flask
 
 import modal
 
@@ -10,11 +11,14 @@ volume = modal.SharedVolume().persist("storage")
 
 image = modal.Image.debian_slim().pip_install("openai")
 
-@stub.function(
-    image=image,
-    shared_volumes={'/Users/evan/rizz-ur-api/backend': volume},
-    mounts=[modal.Mount(local_dir="/Users/evan/rizz-ur-api/backend/starting_data", remote_dir="/root")]
-)
+app = Flask(__name__)
+
+# @stub.function(
+#     image=image,
+#     shared_volumes={'/Users/evan/rizz-ur-api/backend': volume},
+#     mounts=[modal.Mount(local_dir="/Users/evan/rizz-ur-api/backend/starting_data", remote_dir="/root")]
+# )
+@app.route('/')
 def api(app_name, api_call):
     db = json.load(open('db.json','r'))
     gpt3_input = f"""{db[app_name]["prompt"]}
@@ -42,5 +46,6 @@ New Database State:
     return "done"
 
 if __name__ == "__main__":
-    with stub.run():
-        api.call("todo_list", "add_task('buy milk")
+    # with stub.run():
+    #     api.call("todo_list", "add_task('buy milk")
+    app.run()
