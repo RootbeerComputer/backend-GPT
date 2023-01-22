@@ -1,18 +1,20 @@
-Imagine living in a world where every time you want to change your frontend, you also have to change your backend. The downstream effects wouldn't be great. For one, showing the user different data would require asking your backend engineers to write a new api endpoint. Furthermore, you have to make an agreement with the backend people on the API contract.
+# Introducing Backend GPT
+People have been saying Github Copilot will replace programmers. We think that's wrong. We have all powerful models and we want to restrict them to writing code? All code has bugs!
 
-This world would suck, so we are imagining a new one.
+Code is not the ideal way to encode business logic. Code must be reviewed, and it does what you tell it, not what you want. The proper format for business logic is human intelligence.
 
-Who needs Postgres? We have a database with 1KB of storage. And it can do your biz logic too.
+So we thought, who needs python and ec2s and biz logic and postgres?
 
-All you have to do is write one line describing the purpose of your app.
+We've built a entire Backend+Database powered by an LLM. It infers business logic based on the name of the API call and can persist a kilobyte of state!
 
-"This is a todo list app"
+Here's the experience of the future:
+1. Instruct the LLM on the purpose of the backend (i.e. "This is a todo list app")
+2. Write the initial json blob for the database state (i.e. {todo_items: [{title: "eat breakfast", completed: true}, {title: "go to school", completed: false}]}
+3. Start making API calls! You now have infinite backend endpoints that will infer their own business logic and update the persistent state!
 
-or
-
-"You are a chess assistant"
-
-Then
-You can start making api calls. We've done away with the notion of an API contract, and writing backend code.
-
-The model will see the API call, and apply whatever biz logic you probably wanted!
+## Why
+This is the future we imagine
+1. You can iterate on your frontend without knowing exactly what the backend needs to look like.
+2. Backend gives you the wrong format? `https://backend-gpt.com/chess/get_board_state()` -> `https://backend-gpt.com/chess/get_board_state_as_fen()`
+3. Mistype an API name? It doesn't matter!
+4. Serverless w/o the cold start: The only difference between your server and someone elses is the 1KB of state and the LLM instructions, these can be swapped out in milliseconds
