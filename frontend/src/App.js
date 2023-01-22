@@ -5,6 +5,7 @@ import APIHelper from "./APIHelper.js";
 function App() {
   const [todos, setTodos] = useState([]);
   const [todo, setTodo] = useState("");
+  const [command, setCommand] = useState("");
 
   useEffect(() => {
     const fetchTodoAndSetTodos = async () => {
@@ -13,6 +14,16 @@ function App() {
     };
     fetchTodoAndSetTodos();
   }, []);
+
+  const runCommand = async e => {
+    e.preventDefault();
+    if (!todo) {
+      alert("please enter something");
+      return;
+    }
+    const todoList = awaitAPIHelper.getAllTodos();
+    setTodos([...todoList]);
+  }
 
   const createTodo = async e => {
     e.preventDefault();
@@ -51,6 +62,17 @@ function App() {
         <input
           type="text"
           value={todo}
+          onChange={({ target }) => setCommand(target.value)}
+          placeholder="Enter a command"
+        />
+        <button type="button" onClick={createTodo}>
+          Add
+        </button>
+      </div>
+      <div>
+        <input
+          type="text"
+          value={todo}
           onChange={({ target }) => setTodo(target.value)}
           placeholder="Enter a todo"
         />
@@ -60,13 +82,13 @@ function App() {
       </div>
 
       <ul>
-        {todos.length ? todos.map(({ task, completed }, i) => (
+        {todos.length ? todos.map(({ title, completed }, i) => (
           <li
             key={i}
             onClick={e => updateTodo(e, i)}
             className={completed ? "completed" : ""}
           >
-            {task} <span onClick={e => deleteTodo(e, i)}>X</span>
+            {title} <span onClick={e => deleteTodo(e, i)}>X</span>
           </li>
         )) : <p>No Todos Yet :(</p>}
       </ul>

@@ -20,10 +20,11 @@ async function updateTodo(id, payload) {
 }
 
 async function getAllTodos() {
-  const res = await axios.get(`${API_URL}/get_all`);
-  console.log(res.data)
-  console.log(JSON.parse(res.data))
-  return JSON.parse(res.data);
+  const res = await axios.get(`${API_URL}/get_all()`);
+  return [{ 'title': 'Buy Milk', 'completed': true }, { 'title': 'Do laundry', 'completed': false }]
+  // console.log(res.data)
+  // console.log(JSON.parse(res.data))
+  // return JSON.parse(res.data);
 }
 
 export default { createTodo, deleteTodo, updateTodo, getAllTodos };
