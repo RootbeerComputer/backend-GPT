@@ -1,11 +1,14 @@
 import json
 import openai
 from flask import Flask
+import ray
+ray.init()
 
 import modal
 
 import requests
 
+@ray.remote
 def gpt3(input):
     response = requests.post(
     "https://dashboard.scale.com/spellbook/api/app/kw1n3er6",
@@ -45,12 +48,15 @@ Database State:
 
 Output the API response prefixed with 'API response:'. Then output the new database state as json, prefixed with 'New Database State:'. If the API call is only requesting data, then don't change the database state, but base your 'API Response' off what's in the database.
 """
-    completion = gpt3(gpt3_input)
+    completion = ray.get(gpt3.remote(gpt3_input))
     completion = json.loads(completion)["text"]
-    response = json.loads(gpt3(f"{completion}\n\nAPI Response (as above, ignoring new database state, as json): "))["text"]
+
+    future1 = gpt3.remote(f"{completion}\n\nAPI Response (as above, ignoring new database state, as json): ")
+    future2 = gpt3.remote(f"{completion}\n\nThe value of 'New Database State' above (as json):")
+    response = json.loads(ray.get(future1))["text"]
     print("RESPONSE")
     print(response)
-    new_state = json.loads(json.loads(gpt3(f"{completion}\n\nThe value of 'New Database State' above (as json):"))["text"])
+    new_state = json.loads(json.loads(ray.get(future2))["text"])
     print("NEW_STATE")
     print(new_state)
     db[app_name]["state"] = new_state
