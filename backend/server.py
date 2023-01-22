@@ -53,7 +53,7 @@ Output the API response prefixed with 'API response:'. Then output the new datab
     print(new_state)
     db[app_name]["state"] = new_state
     json.dump(db, open('db.json', 'w'), indent=4, default=dict_to_json)
-    return response
+    return json.dumps(response, indent=4)
 
 if __name__ == "__main__":
     app.run()
