@@ -6,6 +6,7 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [todo, setTodo] = useState("");
   const [command, setCommand] = useState("");
+  const [commandOutput, setCommandOutput] = useState("No command output")
 
   useEffect(() => {
     const fetchTodoAndSetTodos = async () => {
@@ -21,7 +22,8 @@ function App() {
       alert("please enter something");
       return;
     }
-    const todoList = awaitAPIHelper.getAllTodos();
+    await APIHelper.runCommand(command);
+    const todoList = await APIHelper.getAllTodos();
     setTodos([...todoList]);
   }
 
@@ -43,32 +45,27 @@ function App() {
   const deleteTodo = async (e, id) => {
     try {
       e.stopPropagation();
-      const todoList = await APIHelper.deleteTodo(id);
+      const todoList = await APIHelper.deleteTodo(todos[id].title);
       setTodos([...todoList]);
     } catch (err) { }
   };
 
   const updateTodo = async (e, id) => {
     e.stopPropagation();
-    const payload = { completed: !todos.find(todo => todo._id === id).completed }
-    const todoList = await APIHelper.updateTodo(id, payload);
+    let todoList
+    if (todos[id].completed === 'true') {
+      todoList = await APIHelper.markComplete(todos[id].title);
+    }
+    else {
+      todoList = await APIHelper.markIncomplete(todos[id].title);
+    }
+
     setTodos(todoList);
 
   };
 
   return (
     <div className="App">
-      <div>
-        <input
-          type="text"
-          value={todo}
-          onChange={({ target }) => setCommand(target.value)}
-          placeholder="Enter a command"
-        />
-        <button type="button" onClick={createTodo}>
-          Add
-        </button>
-      </div>
       <div>
         <input
           type="text"
@@ -92,6 +89,20 @@ function App() {
           </li>
         )) : <p>No Todos Yet :(</p>}
       </ul>
+      <div>
+        <input
+          type="text"
+          value={command}
+          onChange={({ target }) => setCommand(target.value)}
+          placeholder="Enter a command"
+        />
+        <button type="button" onClick={createTodo}>
+          Run
+        </button>
+      </div>
+      <div>
+        Command Output:
+      </div>
     </div>
   );
 }

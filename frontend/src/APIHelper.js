@@ -2,29 +2,31 @@ import axios from "axios";
 
 const API_URL = "http://localhost:5000/todo_list"
 async function createTodo(task) {
-  const { data: newTodo } = await axios.post(API_URL, {
-    task
-  });
-  return newTodo;
+  await axios.get(`${API_URL}/add_todo(${task})`);
+  return await getAllTodos()
 }
 
-async function deleteTodo(id) {
-  const message = await axios.delete(`${API_URL}${id}`);
-  return message;
+async function deleteTodo(title) {
+  await axios.get(`${API_URL}/delete(${title})`);
+  return await getAllTodos()
 }
 
-async function updateTodo(id, payload) {
-  const { data: newTodo } = await axios.put(`${API_URL}${id}`, payload);
+async function markIncomplete(title) {
+  await axios.get(`${API_URL}/mark_incomplete(${title})`);
+  return await getAllTodos()
+}
+async function markComplete(title) {
+  await axios.get(`${API_URL}/mark_complete(${title})`)
+  return await getAllTodos();
+}
 
-  return newTodo;
+async function runCommand(command) {
+
 }
 
 async function getAllTodos() {
   const res = await axios.get(`${API_URL}/get_all()`);
-  return [{ 'title': 'Buy Milk', 'completed': true }, { 'title': 'Do laundry', 'completed': false }]
-  // console.log(res.data)
-  // console.log(JSON.parse(res.data))
-  // return JSON.parse(res.data);
+  return res.data;
 }
 
-export default { createTodo, deleteTodo, updateTodo, getAllTodos };
+export default { createTodo, deleteTodo, markIncomplete, markComplete, getAllTodos };
