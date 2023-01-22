@@ -37,21 +37,25 @@ def api(app_name, api_call):
     db = json.load(open('db.json','r'))
     print(db[app_name]["state"])
     gpt3_input = f"""{db[app_name]["prompt"]}
-API Call:
+API Call (indexes are zero-indexed):
 {api_call}
 
 Database State:
 {db[app_name]["state"]}
 
-New Database State (as json):
+Output the API response prefixed with 'API response:'. Then output the new database state as json, prefixed with 'New Database State:'. If the API call is only requesting data, then don't change the database state, but base your 'API Response' off what's in the database.
 """
     completion = gpt3(gpt3_input)
-    new_state = json.loads(json.loads(completion)["text"])
+    completion = json.loads(completion)["text"]
+    response = json.loads(gpt3(f"{completion}\n\nAPI Response (as above, ignoring new database state, as json): "))["text"]
+    print("RESPONSE")
+    print(response)
+    new_state = json.loads(json.loads(gpt3(f"{completion}\n\nThe value of 'New Database State' above (as json):"))["text"])
     print("NEW_STATE")
     print(new_state)
     db[app_name]["state"] = new_state
     json.dump(db, open('db.json', 'w'), indent=4, default=dict_to_json)
-    return "done"
+    return response
 
 if __name__ == "__main__":
     # with stub.run():
