@@ -3,8 +3,6 @@ from flask import Flask
 import ray
 ray.init()
 from flask_cors import CORS
-
-
 import requests
 
 @ray.remote
@@ -30,6 +28,7 @@ print(db['todo_list']["state"])
 @app.route('/<app_name>/<api_call>')
 def api(app_name, api_call):
     db = json.load(open('db.json','r'))
+    print("INPUT DB STATE")
     print(db[app_name]["state"])
     gpt3_input = f"""{db[app_name]["prompt"]}
 API Call (indexes are zero-indexed):
