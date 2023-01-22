@@ -21,5 +21,100 @@
                 }
             ]
         }
+    },
+    "chess": {
+        "prompt": "You are a chess assistant",
+        "state": {
+            "board": [
+                [
+                    "r",
+                    "n",
+                    "b",
+                    "q",
+                    "k",
+                    "b",
+                    "n",
+                    "r"
+                ],
+                [
+                    "p",
+                    "p",
+                    "p",
+                    "p",
+                    "p",
+                    "p",
+                    "p",
+                    "p"
+                ],
+                [
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " "
+                ],
+                [
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " "
+                ],
+                [
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " "
+                ],
+                [
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " "
+                ],
+                [
+                    "P",
+                    "P",
+                    "P",
+                    "P",
+                    "P",
+                    "P",
+                    "P",
+                    "P"
+                ],
+                [
+                    "R",
+                    "N",
+                    "B",
+                    "Q",
+                    "K",
+                    "B",
+                    "N",
+                    "R"
+                ]
+            ],
+            "turn": "white",
+            "white_castle_kingside": true,
+            "white_castle_queenside": true,
+            "black_castle_kingside": true,
+            "black_castle_queenside": true,
+            "en_passant": null,
+            "halfmove_clock": 0,
+            "fullmove_number": 1
+        }
     }
 }
