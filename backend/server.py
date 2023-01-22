@@ -11,6 +11,9 @@ volume = modal.SharedVolume().persist("storage")
 
 image = modal.Image.debian_slim().pip_install("openai")
 
+def dict_to_json(d):
+    return d.__dict__
+
 app = Flask(__name__)
 
 # @stub.function(
@@ -21,6 +24,7 @@ app = Flask(__name__)
 @app.route('/<app_name>/<api_call>')
 def api(app_name, api_call):
     db = json.load(open('db.json','r'))
+    print(db)
     gpt3_input = f"""{db[app_name]["prompt"]}
 API Call:
 {api_call}
@@ -39,10 +43,9 @@ New Database State:
         frequency_penalty=0,
         presence_penalty=0
     )
-    new_state = completion["choices"][0]["text"].strip()
-    print(new_state)
+    new_state = json.loads(completion["choices"][0]["text"].strip())
     db[app_name]["state"] = new_state
-    json.dump(db, open('db.json', 'w'))
+    json.dump(db, open('db.json', 'w'), indent=4, default=dict_to_json)
     return "done"
 
 if __name__ == "__main__":
