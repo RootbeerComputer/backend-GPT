@@ -1,23 +1,35 @@
 {
-  "name": "react-todo-app",
+  "name": "todo-frontend",
   "version": "0.1.0",
   "private": true,
-  "devDependencies": {
-    "react-scripts": "0.9.0"
-  },
   "dependencies": {
-    "axios": "^1.2.3",
-    "bootstrap": "^3.4.1",
-    "immutability-helper": "^2.1.1",
-    "keycode-js": "^0.0.4",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "recompose": "^0.23.5"
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "axios": "^0.19.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
