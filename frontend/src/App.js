@@ -24,25 +24,25 @@ function App() {
       alert(`Task: ${todo} already exists`);
       return;
     }
-    const newTodo = await APIHelper.createTodo(todo);
-    console.log(newTodo);
-    setTodos([...todos, newTodo]);
+    const todoList = await APIHelper.createTodo(todo);
+    console.log(todoList);
+    setTodos([...todoList]);
   };
 
   const deleteTodo = async (e, id) => {
     try {
       e.stopPropagation();
-      await APIHelper.deleteTodo(id);
-      setTodos(todos.filter(({ _id: i }) => id !== i));
-    } catch (err) {}
+      const todoList = await APIHelper.deleteTodo(id);
+      setTodos([...todoList]);
+    } catch (err) { }
   };
 
   const updateTodo = async (e, id) => {
     e.stopPropagation();
-    const payload = {completed: !todos.find(todo => todo._id === id).completed}
-    const updatedTodo  = await APIHelper.updateTodo(id, payload);
-    setTodos(todos.map((todo)=> todo._id === id ? updatedTodo: todo));
-    
+    const payload = { completed: !todos.find(todo => todo._id === id).completed }
+    const todoList = await APIHelper.updateTodo(id, payload);
+    setTodos(todoList);
+
   };
 
   return (
@@ -60,15 +60,15 @@ function App() {
       </div>
 
       <ul>
-        {todos.length ? todos.map(({ _id, task, completed }, i) => (
+        {todos.length ? todos.map(({ task, completed }, i) => (
           <li
             key={i}
-            onClick={e => updateTodo(e, _id)}
+            onClick={e => updateTodo(e, i)}
             className={completed ? "completed" : ""}
           >
-            {task} <span onClick={e => deleteTodo(e, _id)}>X</span>
+            {task} <span onClick={e => deleteTodo(e, i)}>X</span>
           </li>
-        )): <p>No Todos Yet :(</p>}
+        )) : <p>No Todos Yet :(</p>}
       </ul>
     </div>
   );
