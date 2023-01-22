@@ -77,7 +77,7 @@ function App() {
       <div>
         We've prebuilt requests to add todos, mark complete (click an incomplete todo), mark incomplete (click a completed todo), delete (click the x). Or you can run your own commands via the command bar. Play around!
         <p />
-        For example, try something like "delete last 2 todos".
+        For example, try something like "delete last 2 todos". It can handle some natural language, but it's generally better to do a function in pseudocode, like "add_todo_twice(do squats)".
         <p />
       </div>
       <div>
