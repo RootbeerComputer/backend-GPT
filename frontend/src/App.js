@@ -18,11 +18,11 @@ function App() {
 
   const runCommand = async e => {
     e.preventDefault();
-    if (!todo) {
+    if (!command) {
       alert("please enter something");
       return;
     }
-    await APIHelper.runCommand(command);
+    setCommandOutput(await APIHelper.runCommand(command));
     const todoList = await APIHelper.getAllTodos();
     setTodos([...todoList]);
   }
@@ -37,29 +37,31 @@ function App() {
       alert(`Task: ${todo} already exists`);
       return;
     }
-    const todoList = await APIHelper.createTodo(todo);
-    console.log(todoList);
+    setCommandOutput(await APIHelper.createTodo(todo));
+    const todoList = await APIHelper.getAllTodos();
     setTodos([...todoList]);
   };
 
   const deleteTodo = async (e, id) => {
     try {
       e.stopPropagation();
-      const todoList = await APIHelper.deleteTodo(todos[id].title);
+      setCommandOutput(await APIHelper.deleteTodo(todos[id].title));
+      const todoList = await APIHelper.getAllTodos();
       setTodos([...todoList]);
     } catch (err) { }
   };
 
   const updateTodo = async (e, id) => {
     e.stopPropagation();
-    let todoList
-    if (todos[id].completed === 'true') {
-      todoList = await APIHelper.markComplete(todos[id].title);
+    console.log(todos[id].completed)
+    console.log(todos[id].completed === true)
+    if (todos[id].completed === true) {
+      setCommandOutput(await APIHelper.markIncomplete(todos[id].title));
     }
     else {
-      todoList = await APIHelper.markIncomplete(todos[id].title);
+      setCommandOutput(await APIHelper.markComplete(todos[id].title));
     }
-
+    const todoList = await APIHelper.getAllTodos();
     setTodos(todoList);
 
   };
@@ -96,12 +98,15 @@ function App() {
           onChange={({ target }) => setCommand(target.value)}
           placeholder="Enter a command"
         />
-        <button type="button" onClick={createTodo}>
+        <button type="button" onClick={runCommand}>
           Run
         </button>
       </div>
       <div>
         Command Output:
+        <div>
+          {commandOutput}
+        </div>
       </div>
     </div>
   );
