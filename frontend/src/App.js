@@ -71,6 +71,14 @@ function App() {
   return (
     <div className="App">
       <div>
+        All backend logic is being handled by an LLM
+        <p />
+      </div>
+      <div>
+        We've prebuilt requests to add todos, mark complete (click an incomplete todo), mark incomplete (click a completed todo), delete (click the x).
+        <p />
+      </div>
+      <div>
         <input
           type="text"
           value={todo}
