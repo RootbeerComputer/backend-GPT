@@ -1,10 +1,8 @@
 import json
-import openai
 from flask import Flask
 import ray
 ray.init()
 
-import modal
 
 import requests
 
@@ -19,22 +17,14 @@ def gpt3(input):
     )
     return response.text
 
-stub = modal.Stub("not-an-api")
-volume = modal.SharedVolume().persist("storage")
-
-image = modal.Image.debian_slim().pip_install("openai")
-
 def dict_to_json(d):
     return d.__dict__
 
 app = Flask(__name__)
 db = json.load(open('db.json','r'))
+print("INITIAL DB STATE")
 print(db['todo_list']["state"])
-# @stub.function(
-#     image=image,
-#     shared_volumes={'/Users/evan/rizz-ur-api/backend': volume},
-#     mounts=[modal.Mount(local_dir="/Users/evan/rizz-ur-api/backend/starting_data", remote_dir="/root")]
-# )
+
 @app.route('/<app_name>/<api_call>')
 def api(app_name, api_call):
     db = json.load(open('db.json','r'))
@@ -64,6 +54,4 @@ Output the API response prefixed with 'API response:'. Then output the new datab
     return response
 
 if __name__ == "__main__":
-    # with stub.run():
-    #     api.call("todo_list", "add_task('buy milk")
     app.run()
