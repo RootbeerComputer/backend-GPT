@@ -104,7 +104,7 @@ function App() {
         )) : <p>No Todos Yet :(</p>}
       </ul>
       <div>
-        <input
+        http://localhost:5000/todo_list/<input
           type="text"
           value={command}
           onChange={({ target }) => setCommand(target.value)}
