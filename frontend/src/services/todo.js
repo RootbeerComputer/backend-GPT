@@ -5,6 +5,10 @@ import update from 'immutability-helper';
  * @return {Array}
  */
 export function getAll() {
+    console.log(process.env.REACT_APP_BACKEND_URL)
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/todo_list/get`, { method: 'GET' }).then(res => {
+        console.log(res.json())
+    })
     return [
         {
             id: 1,
