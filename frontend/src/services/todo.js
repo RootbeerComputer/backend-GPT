@@ -1,44 +1,31 @@
 import update from 'immutability-helper';
+import { useEffect } from "react";
 
 /**
  * Get the list of todo items.
  * @return {Array}
  */
 export function getAll() {
-    console.log(process.env.REACT_APP_BACKEND_URL)
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/todo_list/get`, { method: 'GET' }).then(res => {
-        console.log(res)
-        console.log(res.json())
+    useEffect(() => {
+        console.log(process.env.REACT_APP_BACKEND_URL)
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/todo_list/get_all()`, { method: 'GET' }).then(res => {
+            console.log(res.body)
+            return res.json()
+        })
     })
-    return [
-        {
-            id: 1,
-            text: 'Learn Javascript',
-            completed: false
-        },
-        {
-            id: 2,
-            text: 'Learn React',
-            completed: false
-        },
-        {
-            id: 3,
-            text: 'Build a React App',
-            completed: false
-        }
-    ]
+
 }
 
 export function getItemById(itemId) {
     return getAll().find(item => item.id === itemId);
 }
 
-export function runCommand(text) {
+export async function runCommand(text) {
 
     return getAll()
 }
 
-export function updateStatus(items, itemId, completed) {
+export async function updateStatus(items, itemId, completed) {
     let index = items.findIndex(item => item.id === itemId);
     // Returns a new list of data with updated item.
     return update(items, {
@@ -69,7 +56,7 @@ function getNextId() {
  * @param {Object} data
  * @return {Array}
  */
-export function addToList(list, data) {
+export async function addToList(list, data) {
     let item = Object.assign({
         id: getNextId()
     }, data);
