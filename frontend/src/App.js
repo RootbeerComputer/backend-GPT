@@ -75,7 +75,9 @@ function App() {
         <p />
       </div>
       <div>
-        We've prebuilt requests to add todos, mark complete (click an incomplete todo), mark incomplete (click a completed todo), delete (click the x).
+        We've prebuilt requests to add todos, mark complete (click an incomplete todo), mark incomplete (click a completed todo), delete (click the x). Or you can run your own commands via the command bar. Play around!
+        <p />
+        For example, try something like "delete last 2 todos".
         <p />
       </div>
       <div>
