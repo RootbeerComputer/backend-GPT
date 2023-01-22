@@ -43,17 +43,17 @@ Output the API response prefixed with 'API response:'. Then output the new datab
     completion = ray.get(gpt3.remote(gpt3_input))
     completion = json.loads(completion)["text"]
 
-    future1 = gpt3.remote(f"{completion}\n\nAPI Response (as above, ignoring new database state, as json): ")
+    future1 = gpt3.remote(f"{completion}\n\nAPI Response as valid json (as above, ignoring new database state): ")
     future2 = gpt3.remote(f"{completion}\n\nThe value of 'New Database State' above (as json):")
-    response = json.loads(ray.get(future1))["text"]
+    response = json.loads(ray.get(future1).strip())["text"].strip()
     print("RESPONSE")
     print(response)
-    new_state = json.loads(json.loads(ray.get(future2))["text"])
+    new_state = json.loads(json.loads(ray.get(future2).strip())["text"].strip())
     print("NEW_STATE")
     print(new_state)
     db[app_name]["state"] = new_state
     json.dump(db, open('db.json', 'w'), indent=4, default=dict_to_json)
-    return json.dumps(response, indent=4)
+    return response
 
 if __name__ == "__main__":
     app.run()
