@@ -22,6 +22,7 @@ function App() {
       alert("please enter something");
       return;
     }
+    setCommandOutput("Command in progress");
     setCommandOutput(await APIHelper.runCommand(command));
     const todoList = await APIHelper.getAllTodos();
     setTodos([...todoList]);
@@ -37,6 +38,7 @@ function App() {
       alert(`Task: ${todo} already exists`);
       return;
     }
+    setCommandOutput("Command in progress");
     setCommandOutput(await APIHelper.createTodo(todo));
     const todoList = await APIHelper.getAllTodos();
     setTodos([...todoList]);
@@ -45,6 +47,7 @@ function App() {
   const deleteTodo = async (e, id) => {
     try {
       e.stopPropagation();
+      setCommandOutput("Command in progress");
       setCommandOutput(await APIHelper.deleteTodo(todos[id].title));
       const todoList = await APIHelper.getAllTodos();
       setTodos([...todoList]);
@@ -53,8 +56,7 @@ function App() {
 
   const updateTodo = async (e, id) => {
     e.stopPropagation();
-    console.log(todos[id].completed)
-    console.log(todos[id].completed === true)
+    setCommandOutput("Command in progress");
     if (todos[id].completed === true) {
       setCommandOutput(await APIHelper.markIncomplete(todos[id].title));
     }
