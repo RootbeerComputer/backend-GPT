@@ -2,3 +2,4 @@ modal-client
 openai
 flask
 ray
+flask-cors

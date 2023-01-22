@@ -2,6 +2,7 @@ import json
 from flask import Flask
 import ray
 ray.init()
+from flask_cors import CORS
 
 
 import requests
@@ -21,6 +22,7 @@ def dict_to_json(d):
     return d.__dict__
 
 app = Flask(__name__)
+CORS(app)
 db = json.load(open('db.json','r'))
 print("INITIAL DB STATE")
 print(db['todo_list']["state"])

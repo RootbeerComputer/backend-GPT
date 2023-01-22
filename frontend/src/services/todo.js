@@ -7,6 +7,7 @@ import update from 'immutability-helper';
 export function getAll() {
     console.log(process.env.REACT_APP_BACKEND_URL)
     fetch(`${process.env.REACT_APP_BACKEND_URL}/todo_list/get`, { method: 'GET' }).then(res => {
+        console.log(res)
         console.log(res.json())
     })
     return [
@@ -32,15 +33,22 @@ export function getItemById(itemId) {
     return getAll().find(item => item.id === itemId);
 }
 
+export function runCommand(text) {
+
+    return getAll()
+}
+
 export function updateStatus(items, itemId, completed) {
     let index = items.findIndex(item => item.id === itemId);
-
     // Returns a new list of data with updated item.
     return update(items, {
         [index]: {
             completed: { $set: completed }
         }
     });
+
+    return getAll()
+
 }
 
 /**
