@@ -4,7 +4,7 @@ from flask import Flask
 
 import modal
 
-openai.api_key = "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" # "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"
+openai.api_key = "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" # "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"
 
 stub = modal.Stub("not-an-api")
 volume = modal.SharedVolume().persist("storage")
@@ -32,7 +32,7 @@ API Call:
 Database State:
 {db[app_name]["state"]}
 
-New Database State:
+New Database State (as json):
 """
     completion = openai.Completion.create(
         model="text-davinci-003",
@@ -43,7 +43,11 @@ New Database State:
         frequency_penalty=0,
         presence_penalty=0
     )
+    print("COMPLETION")
+    print(completion["choices"][0]["text"].strip())
     new_state = json.loads(completion["choices"][0]["text"].strip())
+    print("NEW_STATE")
+    print(new_state)
     db[app_name]["state"] = new_state
     json.dump(db, open('db.json', 'w'), indent=4, default=dict_to_json)
     return "done"

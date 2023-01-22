@@ -1,3 +1,11 @@
+
+```
+python3 server.py
+curl "http://127.0.0.1:5000/todo_list/mark_incomplete(3)"
+```
+
+**Ignore everything below**
+
 Install requirements
 ```
 pip3 install -r requirements.txt

@@ -13,7 +13,7 @@
                 },
                 {
                     "title": "Do laundry",
-                    "completed": true
+                    "completed": false
                 },
                 {
                     "title": "Clean room",
