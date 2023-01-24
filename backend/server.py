@@ -12,7 +12,7 @@ def gpt3(input):
     json={
             "input": input
         },
-    headers={"Authorization":"Basic cld6n7eoo0065sr1acbwczykv"}
+    headers={"Authorization":"Basic DO TAKE MY TOKEN PLS"}
     )
     return response.text
 
