@@ -17,7 +17,7 @@
                 },
                 {
                     "title": "Clean room",
-                    "completed": true
+                    "completed": false
                 }
             ]
         }
