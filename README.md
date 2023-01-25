@@ -1,5 +1,5 @@
-# GPT is all you need for the backend  
-<img align="right" src="https://github.com/TheAppleTucker/backend-GPT/blob/main/LLM-IS-BACKEND.jpeg" width=360px height=486px>  
+<h1 align="center">GPT is all you need for the backend</h1>  
+<img align="right" src="https://github.com/PepeBigotes/backend-GPT/blob/main/LLM-IS-BACKEND.png" width=360px height=486px>  
 
 People have been saying Github Copilot will replace programmers. We think that's wrong. We have all powerful models and we want to restrict them to writing code? All code has bugs!
 
