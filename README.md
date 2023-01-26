@@ -1,13 +1,13 @@
 # GPT is all you need for the backend
 ![Galaxy brain meme (a) Writing a backend (b) hiring a backend engineer (c) Asking ChatGPT for a backend (d) The LLM is the backend](LLM-IS-BACKEND.jpeg)
 
-People have been saying Github Copilot will replace programmers. We think that's wrong. We have all powerful models and we want to restrict them to writing code? All code has bugs!
+People have been saying Github Copilot will replace programmers. We think that's wrong. We have all-powerful models and we want to restrict them to writing code? All code has bugs!
 
 Code is not the ideal way to encode business logic. Code must be reviewed, and it does what you tell it, not what you want. The proper format for business logic is human intelligence.
 
 So we thought, who needs python and ec2s and biz logic and postgres?
 
-We've built a entire Backend+Database powered by an LLM. It infers business logic based on the name of the API call and can persist a kilobyte of state!
+We've built an entire Backend+Database powered by an LLM. It infers business logic based on the name of the API call and can persist a kilobyte of state!
 
 Here's the experience of the future:
 1. Instruct the LLM on the purpose of the backend (i.e. "This is a todo list app")
