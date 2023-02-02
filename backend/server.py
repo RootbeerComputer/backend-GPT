@@ -45,18 +45,18 @@ Output the API response as json prefixed with '!API response!:'. Then output the
     completion = json.loads(completion)["text"]
 
     # parsing "API Response" and "New Database State" with regex
-    future1 = re.search("(?<=!API Response!:).*(?=!New Database State!:)", completion, re.DOTALL)
-    future2 = re.search("(?<=!New Database State!:).*", completion, re.DOTALL)
+    api_response_match = re.search("(?<=!API Response!:).*(?=!New Database State!:)", completion, re.DOTALL)
+    new_database_match = re.search("(?<=!New Database State!:).*", completion, re.DOTALL)
 
-    # converting regex result into json
-    api_response = future1.string[future1.regs[0][0]:future1.regs[0][1]].strip()
-    new_database = future2.string[future2.regs[0][0]:future2.regs[0][1]].strip()
+    # converting regex result into json string
+    api_response_text = api_response_match.string[api_response_match.regs[0][0]:api_response_match.regs[0][1]].strip()
+    new_database_text = new_database_match.string[new_database_match.regs[0][0]:new_database_match.regs[0][1]].strip()
 
-    response = json.loads(json.dumps(ast.literal_eval(api_response)))
+    response = json.loads(json.dumps(ast.literal_eval(api_response_text)))
     print("RESPONSE")
     print(response)
 
-    new_state = json.loads(json.dumps(ast.literal_eval(new_database)))
+    new_state = json.loads(json.dumps(ast.literal_eval(new_database_text)))
     print("NEW_STATE")
     print(new_state)
 
