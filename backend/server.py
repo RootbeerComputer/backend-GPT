@@ -1,13 +1,10 @@
 import json
 from flask import Flask
-import ray
-ray.init()
 from flask_cors import CORS
 import requests
 import re
 import ast
 
-@ray.remote
 def gpt3(input):
     response = requests.post(
     "https://dashboard.scale.com/spellbook/api/app/kw1n3er6",
@@ -41,7 +38,7 @@ Database State:
 
 Output the API response as json prefixed with '!API response!:'. Then output the new database state as json, prefixed with '!New Database State!:'. If the API call is only requesting data, then don't change the database state, but base your 'API Response' off what's in the database.
 """
-    completion = ray.get(gpt3.remote(gpt3_input))
+    completion = gpt3(gpt3_input)
     completion = json.loads(completion)["text"]
 
     # parsing "API Response" and "New Database State" with regex
