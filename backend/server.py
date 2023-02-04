@@ -1,11 +1,10 @@
 import json
 from flask import Flask
-import ray
-ray.init()
 from flask_cors import CORS
 import requests
+import re
+import ast
 
-@ray.remote
 def gpt3(input):
     response = requests.post(
     "https://dashboard.scale.com/spellbook/api/app/kw1n3er6",
@@ -37,19 +36,27 @@ API Call (indexes are zero-indexed):
 Database State:
 {db[app_name]["state"]}
 
-Output the API response prefixed with 'API response:'. Then output the new database state as json, prefixed with 'New Database State:'. If the API call is only requesting data, then don't change the database state, but base your 'API Response' off what's in the database.
+Output the API response as json prefixed with '!API response!:'. Then output the new database state as json, prefixed with '!New Database State!:'. If the API call is only requesting data, then don't change the database state, but base your 'API Response' off what's in the database.
 """
-    completion = ray.get(gpt3.remote(gpt3_input))
+    completion = gpt3(gpt3_input)
     completion = json.loads(completion)["text"]
 
-    future1 = gpt3.remote(f"{completion}\n\nAPI Response as valid json (as above, ignoring new database state): ")
-    future2 = gpt3.remote(f"{completion}\n\nThe value of 'New Database State' above (as json):")
-    response = json.loads(ray.get(future1).strip())["text"].strip()
+    # parsing "API Response" and "New Database State" with regex
+    api_response_match = re.search("(?<=!API Response!:).*(?=!New Database State!:)", completion, re.DOTALL)
+    new_database_match = re.search("(?<=!New Database State!:).*", completion, re.DOTALL)
+
+    # converting regex result into json string
+    api_response_text = api_response_match.string[api_response_match.regs[0][0]:api_response_match.regs[0][1]].strip()
+    new_database_text = new_database_match.string[new_database_match.regs[0][0]:new_database_match.regs[0][1]].strip()
+
+    response = json.loads(json.dumps(ast.literal_eval(api_response_text)))
     print("RESPONSE")
     print(response)
-    new_state = json.loads(json.loads(ray.get(future2).strip())["text"].strip())
+
+    new_state = json.loads(json.dumps(ast.literal_eval(new_database_text)))
     print("NEW_STATE")
     print(new_state)
+
     db[app_name]["state"] = new_state
     json.dump(db, open('db.json', 'w'), indent=4, default=dict_to_json)
     return response
