@@ -1,4 +1,4 @@
-modal-client
 openai
 flask
 flask-cors
+tiktoken

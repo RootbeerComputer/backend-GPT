@@ -1,19 +1,20 @@
 import json
 from flask import Flask
 from flask_cors import CORS
-import requests
 import re
+import openai
 import ast
-
+import tiktoken
+enc = tiktoken.get_encoding("gpt2")
+openai.api_key = # put key here
 def gpt3(input):
-    response = requests.post(
-    "https://dashboard.scale.com/spellbook/api/app/kw1n3er6",
-    json={
-            "input": input
-        },
-    headers={"Authorization":"Basic cld6n7eoo0065sr1acbwczykv"}
+    completion = openai.Completion.create(
+        prompt=input,
+        model="text-davinci-003",
+        max_tokens=4000-len(enc.encode(input)),
+        temperature=0
     )
-    return response.text
+    return completion.choices[0].text
 
 def dict_to_json(d):
     return d.__dict__
@@ -39,7 +40,6 @@ Database State:
 Output the API response as json prefixed with '!API response!:'. Then output the new database state as json, prefixed with '!New Database State!:'. If the API call is only requesting data, then don't change the database state, but base your 'API Response' off what's in the database.
 """
     completion = gpt3(gpt3_input)
-    completion = json.loads(completion)["text"]
 
     # parsing "API Response" and "New Database State" with regex
     api_response_match = re.search("(?<=!API Response!:).*(?=!New Database State!:)", completion, re.DOTALL)
