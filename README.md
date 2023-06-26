@@ -1,4 +1,10 @@
 # GPT is all you need for the backend
+
+<div align="center">
+  
+[![Discord](https://img.shields.io/discord/1122949106558570648)](https://discord.gg/3ASBTJWgGS)
+</div>
+
 ![Galaxy brain meme (a) Writing a backend (b) hiring a backend engineer (c) Asking ChatGPT for a backend (d) The LLM is the backend](LLM-IS-BACKEND.jpeg)
 
 People have been saying Github Copilot will replace programmers. We think that's wrong. We have all powerful models and we want to restrict them to writing code? All code has bugs!
@@ -26,3 +32,8 @@ This is the future we imagine
 Here's how it works in Parker's words
 
 We basically used GPT to handle all the backend logic for a todo-list app. We represented the state of the app as a json with some prepopulated entries which helped define the schema. Then we pass the prompt, the current state, and some user-inputted instruction/API call in and extract a response to the client + the new state. So the idea is that instead of writing backend routes, the LLM can handle all the basic CRUD logic for a simple app so instead of writing specific routes, you can input commands like add_five_housework_todos() or delete_last_two_todos() or sort_todos_alphabetically() . It tends to work better when the commands are expressed as functions/pseudo function calls but natural language instructions like delete last todos also work.
+
+<div align="center">
+  
+[![Discord](https://img.shields.io/discord/1122949106558570648)](https://discord.gg/3ASBTJWgGS)
+</div>
